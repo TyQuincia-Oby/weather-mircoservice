@@ -4,7 +4,7 @@ import 'dotenv/config'
 const apiKey = process.env.WEATHER_KEY;
 
 const app = express();
-const PORT = 3001 //run on different port than REST API
+const PORT = process.env.PORT //run on different port than REST API
 
 app.get('/', (req, res) => {
     res.json({
@@ -31,7 +31,7 @@ app.get('/weather', async (req, res) => {
 
     const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Baton%20Rouge%2C%20L?unitGroup=us&key=G5SHYPPY7NPSNVT2UHMR8U6WZ&contentType=json`
     
-    const response = await fetch(url)
+    const response = await fetch(`${url}`)
     const result = await response.json();
 
     console.log(result);
