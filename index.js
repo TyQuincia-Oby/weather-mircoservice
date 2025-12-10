@@ -1,4 +1,7 @@
 import express from 'express';
+import 'dotenv/config'
+
+const apiKey = process.env.WEATHER_KEY;
 
 const app = express();
 const PORT = 3001 //run on different port than REST API
