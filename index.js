@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
     console.log(req.headers)
 });
 
-//fetch Baton Rouge,LA Weather
+//fetch Baton Rouge,LA Weather(stub route)
 app.get('/weather', (req, res) => {
     res.json({
         zipcode : 70815,
