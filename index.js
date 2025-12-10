@@ -12,7 +12,16 @@ app.get('/', (req, res) => {
 });
 
 //fetch Baton Rouge,LA Weather
-app.get('/')
+app.get('/weather', (req, res) => {
+    res.json({
+        zipcode : 70815,
+        date: "12-08-2025",
+        tempHigh: 85,
+        tempLow: 67,
+        conditions: "warm and sunny",
+        precipitationProb: "0%"
+    })
+})
 
 app.listen(PORT, () => {
     console.log(`Weather Microservice running on port ${PORT}`)
