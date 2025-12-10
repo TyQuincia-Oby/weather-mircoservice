@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
     console.log(req.headers)
 });
 
-//fetch Baton Rouge,LA Weather(stub route)
-app.get('/weather', (req, res) => {
+//stub route
+app.get('/weather/stub', (req, res) => {
     res.json({
         zipcode : 70815,
         date: "12-08-2025",
@@ -21,7 +21,22 @@ app.get('/weather', (req, res) => {
         conditions: "warm and sunny",
         precipitationProb: "0%"
     })
-})
+});
+
+//Weather route
+app.get('/weather', async (req, res) => {
+
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Baton%20Rouge%2C%20L?unitGroup=us&key=G5SHYPPY7NPSNVT2UHMR8U6WZ&contentType=json`
+    
+    const response = await fetch(url)
+    const result = await response.json();
+
+    console.log(result);
+
+    res.json({
+        result
+    })
+});
 
 app.listen(PORT, () => {
     console.log(`Weather Microservice running on port ${PORT}`)
