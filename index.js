@@ -3,6 +3,8 @@ import 'dotenv/config'
 
 const apiKey = process.env.WEATHER_KEY;
 
+
+
 const app = express();
 const PORT = process.env.PORT //run on different port than REST API
 
@@ -28,6 +30,9 @@ app.get('/weather/stub', (req, res) => {
 
 //Weather route
 app.get('/weather', async (req, res) => {
+    const clientKey = req.headers["x-api-key"]
+    const validKey = process.env.SERVICE_KEY;
+    
     //Request parameters
     // const zipcode = req.query.zip;
     // const date = req.query.date;
@@ -60,6 +65,9 @@ app.get('/weather', async (req, res) => {
         zipcode: zipcode,
         high_temp: result.days[0].tempmax
     })
+
+    console.log(`Received key: ${clientKey ? 'present' : 'missing'}`);
+
 });
 
 app.listen(PORT, () => {
