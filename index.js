@@ -30,9 +30,10 @@ app.get('/weather/stub', (req, res) => {
 
 //Weather route
 app.get('/weather', async (req, res) => {
+    //API key variables
     const clientKey = req.headers["x-api-key"]
     const validKey = process.env.SERVICE_KEY;
-    
+  
     //Request parameters
     // const zipcode = req.query.zip;
     // const date = req.query.date;
@@ -66,6 +67,14 @@ app.get('/weather', async (req, res) => {
         high_temp: result.days[0].tempmax
     })
 
+
+    //Return unauthorized error
+    if(!clientKey || clientKey !== validKey ){
+        return res.status(401).json({
+            error: "Not authorized"
+        })
+    }
+    
     console.log(`Received key: ${clientKey ? 'present' : 'missing'}`);
 
 });
