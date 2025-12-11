@@ -29,22 +29,27 @@ app.get('/weather/stub', (req, res) => {
 //Weather route
 app.get('/weather', async (req, res) => {
 
-    const zipcode = req.query.zip;
-    const date = req.query.date;
+    // const zipcode = req.query.zip;
+    // const date = req.query.date;
+
+    //destructured query
+    const { zipcode, date } = req.query
+
+    if(!zipcode){
+        return res.status(400).json({
+            error: "zipcode is required"
+        })
+    }
 
     console.log(`Fetching weather for Zip Code: ${zipcode} on Date: ${date}`)
 
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Baton%20Rouge%2C%20L?unitGroup=us&key=G5SHYPPY7NPSNVT2UHMR8U6WZ&contentType=json`
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Baton%20Rouge%2C%20LA?unitGroup=us&key=${apiKey}&contentType=json`
     
-    const response = await fetch(`${url}`)
+    const response = await fetch(url)
     const result = await response.json();
 
-    console.log(result);
-
-
-    res.json({
-        result
-    })
+   
+    res.json(result)
 });
 
 app.listen(PORT, () => {

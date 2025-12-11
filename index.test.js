@@ -1,5 +1,3 @@
-export function runWeather(){
-    const weather = {
-        zipcode 
-    }
+export function runWeather(zipcode, date){
+  return `Weather for Zipcode: ${zipcode} on ${date}`
 }
