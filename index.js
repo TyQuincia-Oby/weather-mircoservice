@@ -49,7 +49,12 @@ app.get('/weather', async (req, res) => {
     const response = await fetch(url)
     const result = await response.json();
 
-    res.json(result)
+    res.json({
+        day : result.days[0].datetime,
+        zipcode: zipcode,
+        high_temp: result.days[0].tempmax
+
+    })
 });
 
 app.listen(PORT, () => {
