@@ -35,10 +35,16 @@ app.get('/weather', async (req, res) => {
     //destructured query
     const { zipcode, date } = req.query
 
-    //Error checking - Must have a zipcode
+    //Guard clause - Must have a zipcode
     if(!zipcode){
         return res.status(400).json({
             error: "zipcode is required"
+        })
+    }
+
+    if(!date){
+        return res.status(400).json({
+            error: "date is required"
         })
     }
 
@@ -53,7 +59,6 @@ app.get('/weather', async (req, res) => {
         day : result.days[0].datetime,
         zipcode: zipcode,
         high_temp: result.days[0].tempmax
-
     })
 });
 
