@@ -64,7 +64,9 @@ app.get('/weather', async (req, res) => {
     res.json({
         day : result.days[0].datetime,
         zipcode: zipcode,
-        high_temp: result.days[0].tempmax
+        high_temp: result.days[0].tempmax,
+        low_temp: result.days[0].tempmin,
+        description: result.days[0].description
     })
 
 
