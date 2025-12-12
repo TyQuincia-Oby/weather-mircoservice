@@ -56,5 +56,5 @@ PORT = 3001`
     ✅ Error codes included
 
 ## Assignee 
-TyQuincia R. Oby
+*TyQuincia R. Oby*
 ![me](me.png)

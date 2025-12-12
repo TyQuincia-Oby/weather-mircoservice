@@ -61,6 +61,17 @@ app.get('/weather', async (req, res) => {
     const response = await fetch(url)
     const result = await response.json();
 
+    const day = null;
+
+    for (let i = 0; i < result.days.length; i++){
+        let chosenDay;
+
+        if (result.days.length = result.days[i] ){
+            chosenDay = day;
+            };
+        }
+    })
+
     res.json({
         day : result.days[0].datetime,
         zipcode: zipcode,
