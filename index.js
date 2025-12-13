@@ -31,26 +31,27 @@ app.get('/weather/stub', (req, res) => {
 //Weather route
 app.get('/weather', async (req, res) => {
     //API key variables
-    const clientKey = req.headers["x-api-key"]
+    const clientKey = req.headers["x-api-key"];
     const validKey = process.env.SERVICE_KEY;
+
+    //Return unauthorized error
+    if(!clientKey || clientKey !== validKey ){
+       return res.status(401).json({
+            error: "Not authorized"
+        })
+    }
   
     //Request parameters
     // const zipcode = req.query.zip;
     // const date = req.query.date;
 
     //destructured query
-    const { zipcode, date } = req.query
+    const { zipcode, date } = req.query;
 
     //Guard clause - Must have a zipcode
-    if(!zipcode){
+    if(!zipcode || !date){
         return res.status(400).json({
-            error: "zipcode is required"
-        })
-    }
-
-    if(!date){
-        return res.status(400).json({
-            error: "date is required"
+            error: "zipcode and date are required"
         })
     }
 
@@ -60,34 +61,33 @@ app.get('/weather', async (req, res) => {
     
     const response = await fetch(url)
     const result = await response.json();
+    console.log(result["days"])
 
-    const day = null;
+    let day = null;
 
     for (let i = 0; i < result.days.length; i++){
-        let chosenDay;
-
-        if (result.days.length = result.days[i] ){
-            chosenDay = day;
-            };
+    
+        if (result.days[i].datetime === date ){
+            day=(result.days[i])
         }
-    })
+        console.log(day)
+    }
 
-    res.json({
-        day : result.days[0].datetime,
-        zipcode: zipcode,
-        high_temp: result.days[0].tempmax,
-        low_temp: result.days[0].tempmin,
-        description: result.days[0].description
-    })
-
-
-    //Return unauthorized error
-    if(!clientKey || clientKey !== validKey ){
-        return res.status(401).json({
-            error: "Not authorized"
+    if (!day){
+        return res.status(404).json({
+            error: "No weather for that date"
         })
     }
-    
+
+
+    res.json({
+        day : day.datetime,
+        zipcode: zipcode,
+        high_temp: day.tempmax,
+        low_temp: day.tempmin,
+        description: day.description
+    })
+
     console.log(`Received key: ${clientKey ? 'present' : 'missing'}`);
 
 });
